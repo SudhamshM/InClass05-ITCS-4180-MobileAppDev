@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,5 +73,9 @@ public class AppsListFragment extends Fragment
     {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle(getArguments().getString(ARG_CATEGORY));
+
+        binder.recyclerView.setHasFixedSize(true);
+        binder.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
     }
 }
