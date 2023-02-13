@@ -5,7 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity
-    implements AppCategoriesFragment.AppsCategoriesListener
+    implements AppCategoriesFragment.AppsCategoriesListener,
+        AppsRecyclerViewAdapter.IAppViewer
 {
 
     @Override
@@ -23,6 +24,15 @@ public class MainActivity extends AppCompatActivity
     {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.rootView, AppsListFragment.newInstance(category))
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void goToApp(DataServices.App app)
+    {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.rootView, AppDetailsFragment.newInstance(app))
                 .addToBackStack(null)
                 .commit();
     }

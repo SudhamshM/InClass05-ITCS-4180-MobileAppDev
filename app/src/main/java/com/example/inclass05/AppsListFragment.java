@@ -1,5 +1,6 @@
 package com.example.inclass05;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,8 @@ public class AppsListFragment extends Fragment
 {
 
     FragmentAppsListBinding binder;
+    AppsRecyclerViewAdapter adapter;
+    AppsRecyclerViewAdapter.IAppViewer mListener;
     public static final String ARG_CATEGORY = "CATEGORY";
 
     // TODO: Rename and change types of parameters
@@ -72,10 +75,23 @@ public class AppsListFragment extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle(getArguments().getString(ARG_CATEGORY));
+        String appCategory = getArguments().getString(ARG_CATEGORY);
+        getActivity().setTitle(appCategory);
 
         binder.recyclerView.setHasFixedSize(true);
         binder.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new AppsRecyclerViewAdapter(DataServices.getAppsByCategory(appCategory),
+                mListener);
+        binder.recyclerView.setAdapter(adapter);
+
 
     }
+
+    @Override
+    public void onAttach(@NonNull Context context)
+    {
+        super.onAttach(context);
+        mListener = (AppsRecyclerViewAdapter.IAppViewer) context;
+    }
+
 }
