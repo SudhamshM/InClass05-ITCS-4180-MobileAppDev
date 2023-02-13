@@ -31,8 +31,6 @@ public class AppDetailsFragment extends Fragment
 {
 
     public static final String ARG_APP = "APP";
-
-    // TODO: Rename and change types of parameters
     private DataServices.App mApp;
     FragmentAppDetailsBinding binder;
     AppGenreAdapter adapter;
@@ -43,14 +41,6 @@ public class AppDetailsFragment extends Fragment
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @return A new instance of fragment AppDetailsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static AppDetailsFragment newInstance(DataServices.App param1)
     {
         AppDetailsFragment fragment = new AppDetailsFragment();
@@ -67,6 +57,7 @@ public class AppDetailsFragment extends Fragment
         if (getArguments() != null)
         {
             mApp = (DataServices.App) getArguments().getSerializable(ARG_APP);
+            genreList = mApp.genres;
         }
     }
 
@@ -87,7 +78,7 @@ public class AppDetailsFragment extends Fragment
         binder.textViewDetailsName.setText(mApp.name);
         binder.textViewDetailsArtist.setText(mApp.artistName);
         binder.textViewDetailsRelease.setText(mApp.releaseDate);
-        adapter = new AppGenreAdapter(getContext(), R.layout.genre_row, mApp.genres);
+        adapter = new AppGenreAdapter(getActivity(), R.layout.genre_row, genreList);
 
         binder.listViewGenre.setAdapter(adapter);
 
@@ -109,7 +100,7 @@ public class AppDetailsFragment extends Fragment
             if (convertView == null)
             {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.genre_row, parent, false);
-                GenreViewHolder viewHolder = new GenreViewHolder(convertView);
+                GenreViewHolder viewHolder = new GenreViewHolder();
                 viewHolder.genre = convertView.findViewById(R.id.textViewGenre);
                 convertView.setTag(viewHolder);
             }
@@ -120,12 +111,8 @@ public class AppDetailsFragment extends Fragment
         }
     }
 
-    public static class GenreViewHolder extends RecyclerView.ViewHolder
+    public static class GenreViewHolder
     {
         TextView genre;
-        public GenreViewHolder(@NonNull View itemView)
-        {
-            super(itemView);
-        }
     }
 }
