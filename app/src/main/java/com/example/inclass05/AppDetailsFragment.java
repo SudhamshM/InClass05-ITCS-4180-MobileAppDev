@@ -2,11 +2,15 @@ package com.example.inclass05;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.inclass05.databinding.FragmentAppDetailsBinding;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +26,7 @@ public class AppDetailsFragment extends Fragment
 
     // TODO: Rename and change types of parameters
     private DataServices.App mApp;
+    FragmentAppDetailsBinding binder;
 
     public AppDetailsFragment()
     {
@@ -60,6 +65,17 @@ public class AppDetailsFragment extends Fragment
                              Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_app_details, container, false);
+        binder = FragmentAppDetailsBinding.inflate(inflater, container, false);
+        return binder.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+    {
+        super.onViewCreated(view, savedInstanceState);
+        getActivity().setTitle("App Details");
+        binder.textViewDetailsName.setText(mApp.name);
+        binder.textViewDetailsArtist.setText(mApp.artistName);
+        binder.textViewDetailsRelease.setText(mApp.releaseDate);
     }
 }

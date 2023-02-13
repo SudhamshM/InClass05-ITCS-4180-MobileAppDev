@@ -6,4 +6,6 @@
     <string name="category">App Category</string>
     <string name="categories_screen">App Categories</string>
     <string name="app_placeholder_name">App Name</string>
+    <string name="artist_name">Artist Name</string>
+    <string name="release">Release Date</string>
 </resources>
