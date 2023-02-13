@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+    implements AppCategoriesFragment.AppsCategoriesListener
+{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -13,6 +15,15 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.rootView, new AppCategoriesFragment())
+                .commit();
+    }
+
+    @Override
+    public void goToCategoryAppList(String category)
+    {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.rootView, AppsListFragment.newInstance(category))
+                .addToBackStack(null)
                 .commit();
     }
 }
